@@ -7,12 +7,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace SebastianBergmann\ResourceOperations;
+namespace Sfp\ResourceOperations;
 
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \SebastianBergmann\ResourceOperations\ResourceOperations
+ * @covers \Sfp\ResourceOperations\ResourceOperations
  */
 final class ResourceOperationsTest extends TestCase
 {
@@ -29,6 +29,6 @@ final class ResourceOperationsTest extends TestCase
         $methods  = ResourceOperations::getMethods();
 
         $this->assertIsArray($methods);
-        $this->assertContains('V8Js::compileString', $methods);
+        $this->assertContains('V8Js::compilestring', $methods);
     }
 }

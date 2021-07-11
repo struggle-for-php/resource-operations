@@ -25,7 +25,8 @@ foreach ($functions as $function => $arguments) {
             if (false === strpos($resourceFunction, '::')) {
                 $resourceFunctions[] = $resourceFunction;
             } else {
-                $resourceMethods[] = $resourceFunction;
+                [$class, $method] = explode('::', $function);
+                $resourceMethods[] = $class . '::' . strtolower($method);
             }
         }
     }
