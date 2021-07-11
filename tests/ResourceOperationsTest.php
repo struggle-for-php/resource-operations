@@ -23,4 +23,12 @@ final class ResourceOperationsTest extends TestCase
         $this->assertIsArray($functions);
         $this->assertContains('fopen', $functions);
     }
+
+    public function testGetMethods(): void
+    {
+        $methods  = ResourceOperations::getMethods();
+
+        $this->assertIsArray($methods);
+        $this->assertContains('V8Js::compileString', $methods);
+    }
 }

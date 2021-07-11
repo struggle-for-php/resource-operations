@@ -1,3 +1,7 @@
+fork of [sebastianbergmann/resource-operations](https://github.com/sebastianbergmann/resource-operations)
+
+----
+
 # Resource Operations
 
 Provides a list of PHP built-in functions that operate on resources.

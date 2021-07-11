@@ -11,6 +11,8 @@
 
 $functions         = require __DIR__ . '/FunctionSignatureMap.php';
 $resourceFunctions = [];
+$resourceMethods = [];
+
 
 foreach ($functions as $function => $arguments) {
     foreach ($arguments as $argument) {
@@ -19,13 +21,21 @@ foreach ($functions as $function => $arguments) {
         }
 
         if ($argument === 'resource') {
-            $resourceFunctions[] = explode('\'', $function)[0];
+            $resourceFunction = explode('\'', $function)[0];
+            if (false === strpos($resourceFunction, '::')) {
+                $resourceFunctions[] = $resourceFunction;
+            } else {
+                $resourceMethods[] = $resourceFunction;
+            }
         }
     }
 }
 
 $resourceFunctions = array_unique($resourceFunctions);
 sort($resourceFunctions);
+$resourceMethods = array_unique($resourceMethods);
+sort($resourceMethods);
+
 
 $buffer = <<<EOT
 <?php declare(strict_types=1);
@@ -37,10 +47,14 @@ $buffer = <<<EOT
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace SebastianBergmann\ResourceOperations;
+namespace Sfp\ResourceOperations;
 
 final class ResourceOperations
 {
+EOT;
+
+
+$buffer .= <<< EOT
     /**
      * @return string[]
      */
@@ -57,8 +71,33 @@ foreach ($resourceFunctions as $function) {
 $buffer .= <<< EOT
         ];
     }
+
+EOT;
+
+$buffer .= <<< EOT
+    /**
+     * @return string[]
+     */
+    public static function getMethods(): array
+    {
+        return [
+
+EOT;
+
+foreach ($resourceMethods as $function) {
+    $buffer .= sprintf("            '%s',\n", $function);
 }
 
+$buffer .= <<< EOT
+        ];
+    }
+
+EOT;
+
+
+
+$buffer .= <<< EOT
+}
 EOT;
 
 file_put_contents(__DIR__ . '/../src/ResourceOperations.php', $buffer);
