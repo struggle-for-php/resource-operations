@@ -10,10 +10,10 @@
     ],
     "prefer-stable": true,
     "require": {
-        "php": ">=7.3"
+        "php": ">=7.2"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.0"
+        "phpunit/phpunit": "^8 || ^9.0"
     },
     "autoload": {
         "classmap": [
@@ -21,16 +21,8 @@
         ]
     },
     "config": {
-        "platform": {
-            "php": "7.3.0"
-        },
         "optimize-autoloader": true,
         "sort-packages": true
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "4.0-dev"
-        }
     }
 }
 
